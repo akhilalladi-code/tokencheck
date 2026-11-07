@@ -1,0 +1,27 @@
+name: Design token audit
+on:
+  pull_request:
+    paths:
+      - '**/*.json'
+      - '.github/workflows/tokencheck.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: project
+      - uses: actions/checkout@v4
+        with:
+          repository: akhilalladi-code/tokencheck
+          path: tokencheck
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Audit token file
+        run: node tokencheck/scripts/tokencheck.mjs "project/\${TOKEN_FILE}" --fail-on error
+        env:
+          TOKEN_FILE: tokens/tokens.json
