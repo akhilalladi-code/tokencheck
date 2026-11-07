@@ -131,6 +131,7 @@ function render(audit) {
   $('#token-search').value = '';
   $('#token-sort').value = 'path-asc';
   renderInventory();
+  renderDesignPreview(audit);
 
   const colors = audit.tokens.filter((token) => token.color);
   const options = colors.map((token) => '<option value="' + escapeHtml(token.path) + '">' + escapeHtml(token.path) + ' · ' + token.color + '</option>').join('');
