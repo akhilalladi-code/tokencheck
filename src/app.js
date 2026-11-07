@@ -2,6 +2,15 @@ import { auditTokens, contrastRatio, contrastGrade, toCsv } from './core.js';
 
 const $ = (selector) => document.querySelector(selector);
 const input = $('#json-input');
+const heroVideo = document.querySelector('.hero__video');
+if (heroVideo) {
+  heroVideo.addEventListener('canplay', () => heroVideo.classList.add('is-ready'), { once: true });
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVideo.pause();
+    heroVideo.classList.add('is-ready');
+  }
+  heroVideo.addEventListener('error', () => heroVideo.classList.remove('is-ready'));
+}
 let latest = null;
 let sample = '';
 let activeFilter = 'all';
