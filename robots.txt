@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://akhilalladi-code.github.io/tokencheck/sitemap.xml
