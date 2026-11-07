@@ -1,4 +1,5 @@
 import { auditTokens, contrastRatio, contrastGrade, toCsv } from './core.js';
+import { auditAdvanced } from './advanced.js';
 
 const $ = (selector) => document.querySelector(selector);
 const input = $('#json-input');
@@ -138,7 +139,7 @@ function render(audit) {
   }
 }
 function analyze() {
-  const audit = auditTokens(input.value);
+  const audit = auditAdvanced(input.value);
   if (!audit.ok) {
     latest = null;
     $('#results').hidden = true;
@@ -210,3 +211,8 @@ try {
 }
 input.value = sample;
 analyze();
+
+$('#export-css')?.addEventListener('click',async()=>{if(!latest)return;const m=await import('./advanced.js');download('tokencheck-tokens.css',m.exportCss(latest),'text/css;charset=utf-8');});
+$('#export-tailwind')?.addEventListener('click',async()=>{if(!latest)return;const m=await import('./advanced.js');download('tokencheck-tailwind.config.js',m.exportTailwind(latest),'text/javascript;charset=utf-8');});
+$('#export-report')?.addEventListener('click',async()=>{if(!latest)return;const m=await import('./advanced.js');download('tokencheck-audit-report.html',m.exportHtmlReport(latest),'text/html;charset=utf-8');});
+$('#compare-file')?.addEventListener('change',async event=>{const file=event.target.files?.[0];if(!file||!latest)return;try{const old=auditTokens(await file.text());if(!old.ok)throw new Error(old.parseError);const m=await import('./advanced.js'),d=m.compareAudits(old,latest);$('#compare-result').innerHTML='<strong>Version comparison</strong><div class="compare-metrics"><span>+'+d.added.length+' added</span><span>−'+d.removed.length+' removed</span><span>'+d.changed.length+' changed</span><span>'+d.unchanged+' unchanged</span></div><p>Compared '+String(file.name).replace(/[&<>"]/g,'')+' with the current editor contents.</p>';status('Comparison complete · '+(d.added.length+d.removed.length+d.changed.length)+' changes found.','success');}catch(error){status('Could not compare file: '+error.message,'error');}event.target.value='';});
