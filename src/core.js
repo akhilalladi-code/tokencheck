@@ -211,7 +211,12 @@ export function contrastGrade(ratio) {
 }
 
 export function toCsv(audit) {
-  const quote = value => `"${String(value ?? '').replaceAll('"', '""')}"`;
+  const quote = value => {
+    const raw = String(value ?? '');
+    // Prefix spreadsheet formula-leading cells to prevent CSV formula injection.
+    const safe = /^[\u0000-\u0020]*[=+\-@]/.test(raw) ? "'" + raw : raw;
+    return '"' + safe.replaceAll('"', '""') + '"';
+  };
   const rows = [['path', 'type', 'value', 'resolved_value', 'color', 'resolution', 'issues']];
   for (const token of audit.tokens) {
     const tokenIssues = audit.issues.filter(issue => issue.path === token.path).map(issue => `${issue.severity}:${issue.code}`).join('; ');
