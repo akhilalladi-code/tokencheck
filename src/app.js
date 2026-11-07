@@ -113,6 +113,13 @@ function renderInventory() {
       '<td><span class="color-cell">' + colorCell + '</span></td></tr>';
   }).join('') : '<tr><td colspan="5" class="no-results">No tokens match your search. Try another term.</td></tr>';
 }
+function renderDesignPreview(audit) {
+  const colors=audit.tokens.filter(t=>t.color);
+  const typed=audit.tokens.filter(t=>/dimension|font|typography/i.test(t.type||''));
+  const colorCards=colors.slice(0,36).map(t=>'<article class="preview-swatch"><span style="--preview-color:'+t.color+'"></span><strong>'+escapeHtml(t.path)+'</strong><code>'+t.color+'</code></article>').join('');
+  const typeCards=typed.slice(0,12).map(t=>'<article class="preview-type"><span>'+escapeHtml(t.type||'token')+'</span><strong>'+escapeHtml(t.resolvedValue??t.value??'—')+'</strong><code>'+escapeHtml(t.path)+'</code></article>').join('');
+  $('#preview-content').innerHTML=(colorCards?'<div class="preview-swatch-grid">'+colorCards+'</div>':'<p>No valid color tokens found.</p>')+(typeCards?'<div class="preview-type-grid">'+typeCards+'</div>':'');
+}
 function render(audit) {
   latest = audit;
   highlightedPath = '';
