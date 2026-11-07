@@ -81,3 +81,10 @@ test('exports a CSV with quoted cells', () => {
   assert.match(csv, /\"path\",\"type\",\"value\"/);
   assert.match(csv, /color\.brand\.primary/);
 });
+
+test('neutralizes spreadsheet formula injection in CSV cells', () => {
+  const result = auditTokens({ '=2+2': { $value: '@SUM(1,1)' } });
+  const csv = toCsv(result);
+  assert.match(csv, /"'=2\+2"/);
+  assert.match(csv, /"'@SUM\(1,1\)"/);
+});
