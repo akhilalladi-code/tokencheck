@@ -15,7 +15,7 @@ try {
  const downloadPromise=page.waitForEvent('download');
  await page.locator('#export-css').click();
  const download=await downloadPromise;
- assert.match(download.suggestedFilename(),/\\.css$/);
+ assert.ok(download.suggestedFilename().endsWith('.css'));
  await page.locator('#compare-file').setInputFiles({name:'previous.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({color:{old:{$value:'#000000'}}}))});
  await page.locator('#compare-result').getByText(/Version comparison/).waitFor();
  assert.deepEqual(errors,[]);
