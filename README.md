@@ -37,7 +37,7 @@ You can also serve the folder with any static HTTP server. A local server is rec
 
 1. Open TokenCheck and paste a JSON token document, or choose a `.json` file.
 2. Select **Run audit**. The sample button loads a small example containing both valid and intentionally problematic tokens.
-3. Review errors first, then warnings. Click through the token inventory to identify the source path and resolved value.
+3. Review errors first, then warnings. Use the token inventory to inspect each source path, source value, and resolved value.
 4. In **Color contrast**, select a foreground and background token to inspect the ratio and WCAG threshold results.
 5. Export JSON for a machine-readable report or CSV for a spreadsheet review.
 
@@ -73,6 +73,17 @@ The MVP resolves a whole-value alias in `{path.to.token}` form. It does not yet 
 Supported color syntax is opaque `#RGB`, `#RRGGBB`, `rgb(r, g, b)`, and `rgba(r, g, b, 1)`. Alpha blending, named colors, HSL, gradients, color spaces, and perceptual color-difference checks are not included. Contrast ratios follow the WCAG relative-luminance formula for opaque sRGB colors. The contrast panel checks only the pair selected by the user; it cannot infer which tokens are actually used together in a UI.
 
 The parser accepts common DTCG-style and Token Studio-style leaf fields, but this is not a claim of full conformance to either specification. Test a real export from your exact tool/version before relying on it in production.
+
+## Publish with GitHub Pages
+
+The app is a static site and is prepared for a project-page URL. To publish it:
+
+1. Open **Settings → Pages** in this repository.
+2. Under **Build and deployment**, choose **Deploy from a branch**.
+3. Select branch `main` and folder `/(root)`, then save.
+4. After GitHub finishes its Pages deployment, open <https://akhilalladi-code.github.io/tokencheck/>.
+
+The HTML uses relative asset paths and the repository includes `.nojekyll`, so the app can run from the `/tokencheck/` project subpath. GitHub Pages must still be enabled in repository settings before that public URL becomes available.
 
 ## Quality checks
 
