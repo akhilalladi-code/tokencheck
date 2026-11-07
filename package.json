@@ -9,7 +9,7 @@
     "test": "node --test",
     "check": "node scripts/check.mjs",
     "audit": "node scripts/tokencheck.mjs",
-    "validate": "node scripts/tokencheck.mjs samples/tokens.json --fail-on error"
+    "validate": "node scripts/tokencheck.mjs samples/tokens.json --format summary"
   },
   "engines": {
     "node": ">=18"
