@@ -18,3 +18,13 @@ jobs:
       - run: npm test
       - run: npm run check
       - run: npm run validate
+      - name: Install browser test runtime
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start local site
+        run: |
+          npm run dev > /tmp/tokencheck-server.log 2>&1 &
+          for i in {1..30}; do curl -fsS http://localhost:4179/ >/dev/null && break; sleep 1; done
+      - name: Browser smoke test
+        run: node tests/browser-smoke.mjs
