@@ -4,7 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#120400">
-  <meta name="description" content="A local-first design token JSON auditor. Find broken aliases, naming issues, duplicate colors and check WCAG contrast before developer handoff.">
+  <meta name="description" content="Audit design tokens locally. Find broken aliases, naming drift, duplicate colors and accessibility issues. Compare versions and export developer-ready tokens.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://akhilalladi-code.github.io/tokencheck/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TokenCheck — Design token quality control">
+  <meta property="og:description" content="A local-first workspace to audit, compare and export design tokens.">
+  <meta property="og:url" content="https://akhilalladi-code.github.io/tokencheck/">
+  <meta property="og:image" content="https://akhilalladi-code.github.io/tokencheck/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TokenCheck — Design token quality control">
+  <meta name="twitter:description" content="Audit, compare and export design tokens locally.">
   <title>TokenCheck — Design tokens, without the guesswork</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +27,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <section class="hero" id="home">
     <div class="hero__media" aria-hidden="true">
-      <video class="hero__video" src="./hero-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <video class="hero__video" src="./hero-loop.mp4" poster="./hero-poster.svg" autoplay muted loop playsinline preload="metadata"></video>
       <div class="hero__scrim"></div>
       <div class="hero__rules"><span></span><span></span><span></span></div>
     </div>
@@ -93,6 +103,7 @@
         <section class="panel issues-panel"><div class="panel-title"><div><span class="eyebrow">REVIEW QUEUE</span><h3>Findings</h3></div><span id="finding-count" class="panel-note">All findings</span></div><div class="filter-row" role="group" aria-label="Filter findings"><button class="filter-chip active" data-filter="all" type="button">All <span id="all-count">0</span></button><button class="filter-chip" data-filter="error" type="button">Errors <span id="error-count">0</span></button><button class="filter-chip" data-filter="warning" type="button">Warnings <span id="warning-count">0</span></button></div><div id="issues" class="issues-list"></div></section>
         <section class="panel contrast-panel" id="contrast"><div class="panel-title"><div><span class="eyebrow">ACCESSIBILITY CHECK</span><h3>Color contrast</h3></div><span class="wcag-tag">WCAG 2.2</span></div><div class="contrast-controls"><label>Foreground<select id="foreground"></select></label><label>Background<select id="background"></select></label></div><div id="contrast-result" class="contrast-result">Run an audit with at least two valid color tokens.</div><p class="fine-print">AA normal text: 4.5:1 · AA large text: 3:1 · AAA normal: 7:1. Calculated for opaque colors only.</p></section>
       </div>
+      <section class="panel preview-panel" id="design-preview"><div class="panel-title"><div><span class="eyebrow">VISUAL QA</span><h3>Design token preview</h3></div><span class="panel-note">COLOR · TYPE · DIMENSION</span></div><div id="preview-content" class="preview-content"><p>Run an audit to preview your token values.</p></div></section>
       <section class="panel token-panel" id="inventory"><div class="panel-title inventory-heading"><div><span class="eyebrow">TOKEN INVENTORY</span><h3>Every token, accounted for.</h3></div><span id="token-count" class="panel-note">0 tokens</span></div><div class="inventory-tools"><label class="search-field"><span>⌕</span><input id="token-search" type="search" placeholder="Search paths, values or types…" autocomplete="off"></label><label class="sort-field">Sort <select id="token-sort"><option value="path-asc">Path A–Z</option><option value="path-desc">Path Z–A</option><option value="type-asc">Type A–Z</option><option value="issues-desc">Most findings</option></select></label><span id="visible-count" class="panel-note"></span></div><div class="table-hint">Swipe or scroll horizontally to inspect every column <span>↔</span></div><div class="table-wrap" tabindex="0" aria-label="Scrollable token inventory"><table><thead><tr><th>PATH</th><th>TYPE</th><th>SOURCE VALUE</th><th>RESOLVED VALUE</th><th>COLOR / STATE</th></tr></thead><tbody id="token-table-body"></tbody></table></div></section>
       <section class="panel compare-panel" aria-labelledby="compare-title"><div class="panel-title"><div><span class="eyebrow">VERSION CONTROL</span><h3 id="compare-title">Compare token versions</h3></div><span class="panel-note">LOCAL FILE · NO UPLOAD</span></div><div class="compare-tools"><p>Choose an earlier JSON export to compare added, removed and changed tokens against the current editor.</p><label class="secondary-button" for="compare-file">Choose previous JSON<input id="compare-file" type="file" accept=".json,application/json" hidden></label></div><div id="compare-result" class="compare-result" aria-live="polite">No comparison yet.</div></section>
     </section>
