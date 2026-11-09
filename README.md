@@ -1,3 +1,7 @@
+![TOKENCHECK — Diwali 2026](./assets/diwali-banner.svg)
+
+<p align="center"><a href="https://akhilalladi-code.github.io/diwali-universe/"><strong>🪔 Explore Diwali Universe 2026 · Interactive celebration ↗</strong></a></p>
+
 # TokenCheck 2.0
 
 **A local-first design-token quality-control workspace.** Audit token JSON, inspect accessibility, compare versions and export developer-ready artifacts without uploading source files.
